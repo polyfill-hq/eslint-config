@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 const a11yOff = Object.keys(require('eslint-plugin-jsx-a11y').rules)
   .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, {});
 
@@ -16,7 +17,7 @@ module.exports = {
   extends: [
     'airbnb',
     'airbnb/hooks',
-    '@kesills/airbnb-typescript/base',
+    '@kesills/airbnb-typescript',
     'plugin:jsx-control-statements/recommended',
     './index.js',
   ],
@@ -40,21 +41,6 @@ module.exports = {
       'off',
       'declaration',
     ],
-    'no-restricted-imports': [
-      'error',
-      {
-        paths: [
-          {
-            message: 'Use analytics from analytics/analytics instead.',
-            name: '@segment/analytics-next',
-          },
-        ],
-        patterns: [
-          '@segment/*',
-        ],
-      },
-    ],
-
     'no-template-curly-in-string': 'error',
 
     'react/button-has-type': 'off',
