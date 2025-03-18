@@ -3,13 +3,14 @@ module.exports = {
     'eslint:recommended',
     'plugin:import/recommended',
     'airbnb-base',
-    'airbnb-typescript/base',
+    '@kesills/airbnb-typescript/base',
     'plugin:eslint-comments/recommended',
   ],
 
   plugins: [
     'eslint-plugin-filename-export',
     'better-max-params',
+    '@stylistic',
   ],
   env: {
     jest: true,
@@ -31,7 +32,6 @@ module.exports = {
       },
     ],
     '@typescript-eslint/ban-ts-comment': 'warn',
-    '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/explicit-function-return-type': [
       'warn',
       {
@@ -41,7 +41,8 @@ module.exports = {
     '@typescript-eslint/naming-convention': [
       'warn',
     ],
-    '@typescript-eslint/no-extra-parens': 'warn',
+    '@stylistic/no-extra-parens': 'warn',
+    '@stylistic/object-property-newline': 'error',
     '@typescript-eslint/no-floating-promises': [
       'error',
     ],
