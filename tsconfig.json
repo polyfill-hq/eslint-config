@@ -29,5 +29,6 @@
     ".eslintrc.js",
     "*.js",
     "*.ts",
+    "sample_files/*.ts",
   ]
 }

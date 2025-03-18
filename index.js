@@ -42,6 +42,7 @@ module.exports = {
       'warn',
     ],
     '@stylistic/no-extra-parens': 'warn',
+    '@stylistic/object-property-newline': 'error',
     '@typescript-eslint/no-floating-promises': [
       'error',
     ],
