@@ -12,7 +12,6 @@
     "eslint-config-airbnb": "19.0.4",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-better-max-params": "0.0.1",
-    "eslint-plugin-cypress": "4.1.0",
     "eslint-plugin-eslint-comments": "3.2.0",
     "eslint-plugin-filename-export": "1.0.4",
     "eslint-plugin-import": "2.31.0",
