@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 const a11yOff = Object.keys(require('eslint-plugin-jsx-a11y').rules)
-  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, {});
+  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, { });
 
 module.exports = {
   env: {
@@ -52,6 +51,9 @@ module.exports = {
     'react/require-default-props': [
       'off',
     ],
-    'react/jsx-one-expression-per-line': ['warn', { allow: 'non-jsx' }],
+    'react/jsx-one-expression-per-line': ['warn', {
+      allow: 'non-jsx',
+    }],
   },
+
 };
