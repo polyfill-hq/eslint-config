@@ -20,7 +20,7 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      typescript: {},
+      typescript: { },
     },
   },
   ignorePatterns: ['dist', 'build'],
@@ -42,7 +42,36 @@ module.exports = {
       'warn',
     ],
     '@stylistic/no-extra-parens': 'warn',
-    '@stylistic/object-property-newline': 'error',
+    '@stylistic/object-property-newline': ['error', {
+      allowAllPropertiesOnSameLine: true,
+    }],
+    'object-curly-newline': 'off',
+    '@stylistic/object-curly-newline': ['error', {
+      ObjectExpression: {
+        multiline: true,
+        minProperties: 4,
+        consistent: true,
+      },
+      ObjectPattern: {
+        multiline: true,
+        minProperties: 4,
+        consistent: true,
+      },
+      ImportDeclaration: {
+        multiline: true,
+        minProperties: 4,
+        consistent: true,
+      },
+      ExportDeclaration: {
+        multiline: true,
+        minProperties: 4,
+        consistent: true,
+      },
+    }],
+    '@stylistic/type-annotation-spacing': ['error', {
+      before: false,
+      after: true,
+    }],
     '@typescript-eslint/no-floating-promises': [
       'error',
     ],

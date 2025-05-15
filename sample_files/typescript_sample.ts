@@ -18,6 +18,20 @@ async function fetchData(url: string): Promise<string> {
   return await fetch(url).then((response) => response.text());
 }
 
+async function fetchDataAwait(url: string): Promise<string> {
+  const resp = await fetch(url);
+  return await resp.text();
+}
+
+function personFunction(person: { age: number,
+  name: string }): void {
+  const obj = {
+    age: 30,
+    name: 'Alice',
+  };
+  console.log(person);
+}
+
 // Interface and class usage
 interface Person {
   name: string;
@@ -53,7 +67,9 @@ const arr1 = [1, 2, 3];
 const arr2 = [...arr1, 4, 5];
 
 // Destructuring
-const { name, age } = new User('Alice', 30);
+const {
+  name, age,
+} = new User('Alice', 30);
 
 // Optional chaining and nullish coalescing
 const user: Person | null = {
