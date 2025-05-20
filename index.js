@@ -2,7 +2,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
-    'airbnb-base',
+    'airbnb/base',
     '@kesills/airbnb-typescript/base',
     'plugin:eslint-comments/recommended',
   ],
@@ -100,6 +100,9 @@ module.exports = {
       'always',
     ],
     'class-methods-use-this': [
+      'off',
+    ],
+    '@typescript-eslint/class-methods-use-this': [
       'off',
     ],
     'consistent-return': [

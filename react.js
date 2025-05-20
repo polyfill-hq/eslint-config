@@ -54,6 +54,10 @@ module.exports = {
     'react/jsx-one-expression-per-line': ['warn', {
       allow: 'non-jsx',
     }],
+    'react/jsx-max-props-per-line': ['warn', {
+      maximum: 2,
+      when: 'always',
+    }],
   },
 
 };
