@@ -1,8 +1,14 @@
-module.exports = {
-  env: {
-    node: true,
+import globals from 'globals';
+
+import baseConfig from './index.js';
+
+export default [
+  ...baseConfig,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
   },
-  extends: [
-    './index.js',
-  ],
-};
+];
