@@ -1,27 +1,23 @@
 {
   "name": "@polyfillhq/eslint-config",
-  "version": "8.0.1",
+  "version": "9.0.0",
   "description": "",
   "main": "index.js",
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@kesills/eslint-config-airbnb-typescript": "20.0.0",
+    "@eslint/js": "9.22.0",
     "@stylistic/eslint-plugin": "4.2.0",
-    "@typescript-eslint/eslint-plugin": "8.32.1",
-    "@typescript-eslint/parser": "8.32.1",
-    "eslint": "8.57.1",
-    "eslint-config-airbnb": "19.0.4",
+    "eslint": "9.22.0",
     "eslint-import-resolver-typescript": "4.3.5",
-    "eslint-plugin-better-max-params": "0.0.1",
     "eslint-plugin-eslint-comments": "3.2.0",
-    "eslint-plugin-filename-export": "1.0.4",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-jsx-control-statements": "3.0.0",
     "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "5.2.0"
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "15.15.0",
+    "typescript-eslint": "8.32.1"
   },
   "scripts": {
     "lint": "eslint ."
