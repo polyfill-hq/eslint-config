@@ -2,8 +2,11 @@ const js = require('@eslint/js');
 const stylistic = require('@stylistic/eslint-plugin');
 const eslintComments = require('eslint-plugin-eslint-comments');
 const importPlugin = require('eslint-plugin-import');
+const packageJsonPlugin = require('eslint-plugin-package-json');
 const globals = require('globals');
 const typescriptEslint = require('typescript-eslint');
+
+/* eslint-disable perfectionist/sort-objects */
 
 module.exports = [
   {
@@ -12,6 +15,7 @@ module.exports = [
   js.configs.recommended,
   stylistic.configs.recommended,
   importPlugin.flatConfigs.recommended,
+  packageJsonPlugin.configs.recommended,
   ...typescriptEslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
@@ -21,6 +25,7 @@ module.exports = [
       },
       parserOptions: {
         projectService: true,
+        extraFileExtensions: ['.json'],
         tsconfigRootDir: __dirname,
       },
     },
@@ -34,6 +39,11 @@ module.exports = [
       },
     },
     rules: {
+      /* eslint-enable perfectionist/sort-objects */
+      '@stylistic/arrow-parens': [
+        'warn',
+        'always',
+      ],
       '@stylistic/brace-style': [
         'warn',
         '1tbs',
@@ -41,10 +51,16 @@ module.exports = [
           allowSingleLine: true,
         },
       ],
-      '@stylistic/arrow-parens': [
-        'warn',
-        'always',
-      ],
+      '@stylistic/member-delimiter-style': ['warn', {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+      }],
       '@stylistic/no-extra-parens': 'warn',
       '@stylistic/object-curly-newline': [
         'error',
@@ -71,21 +87,15 @@ module.exports = [
           },
         },
       ],
-      '@stylistic/member-delimiter-style': ['warn', {
-        multiline: {
-          delimiter: 'semi',
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: 'semi',
-          requireLast: true,
-        },
-      }],
       '@stylistic/object-property-newline': [
         'error',
         {
           allowAllPropertiesOnSameLine: true,
         },
+      ],
+      '@stylistic/semi': [
+        'warn',
+        'always',
       ],
       '@stylistic/type-annotation-spacing': [
         'error',
@@ -124,6 +134,7 @@ module.exports = [
           },
         },
       ],
+      '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',
       '@typescript-eslint/no-unsafe-call': 'warn',
@@ -140,7 +151,6 @@ module.exports = [
         'error',
         'always',
       ],
-      '@typescript-eslint/no-require-imports': 'off',
       'class-methods-use-this': [
         'off',
       ],
@@ -173,7 +183,6 @@ module.exports = [
         },
       ],
       'import/no-mutable-exports': 'warn',
-      'import/no-unresolved': 'error',
       'import/order': [
         'warn',
         {
@@ -216,10 +225,6 @@ module.exports = [
           max: 5,
         },
       ],
-      '@stylistic/semi': [
-        'warn',
-        'always',
-      ],
       'newline-per-chained-call': [
         'warn',
         {
@@ -244,7 +249,6 @@ module.exports = [
         'off',
       ],
       'no-underscore-dangle': 'off',
-      'no-unused-vars': 'off',
       'no-void': [
         'off',
         {

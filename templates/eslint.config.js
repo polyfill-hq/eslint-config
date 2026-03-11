@@ -1,7 +1,7 @@
-const nodeConfig = require('@polyfillhq/eslint-config/node');
+const baseConfig = require('@polyfillhq/eslint-config');
 
 module.exports = [
-  ...nodeConfig,
+  ...baseConfig,
   // ...require('@polyfillhq/eslint-config/react'),
   {
     rules: {},
