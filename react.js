@@ -48,10 +48,10 @@ module.exports = [
         'off',
         'declaration',
       ],
-      'jsx-quotes': [
-        'error',
-        'prefer-single',
-      ],
+      // 'jsx-quotes': [
+      //   'error',
+      //   'prefer-single',
+      // ],
       'no-template-curly-in-string': 'error',
       'react/button-has-type': 'off',
       'react/destructuring-assignment': [
@@ -68,7 +68,7 @@ module.exports = [
         'off',
       ],
       'react/jsx-no-useless-fragment': 'warn',
-      'react/jsx-one-expression-per-line': [
+      '@stylistic/jsx-one-expression-per-line': [
         'warn',
         {
           allow: 'non-jsx',

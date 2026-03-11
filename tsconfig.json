@@ -29,6 +29,6 @@
     "eslint.config.js",
     "*.js",
     "*.ts",
-    "sample_files/*.ts",
+    "sample_files/*",
   ]
 }

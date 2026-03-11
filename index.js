@@ -34,6 +34,17 @@ module.exports = [
       },
     },
     rules: {
+      '@stylistic/brace-style': [
+        'warn',
+        '1tbs',
+        {
+          allowSingleLine: true,
+        },
+      ],
+      '@stylistic/arrow-parens': [
+        'warn',
+        'always',
+      ],
       '@stylistic/no-extra-parens': 'warn',
       '@stylistic/object-curly-newline': [
         'error',
@@ -60,6 +71,16 @@ module.exports = [
           },
         },
       ],
+      '@stylistic/member-delimiter-style': ['warn', {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+      }],
       '@stylistic/object-property-newline': [
         'error',
         {
@@ -90,7 +111,7 @@ module.exports = [
         },
       ],
       '@typescript-eslint/naming-convention': [
-        'warn',
+        'off',
       ],
       '@typescript-eslint/no-floating-promises': [
         'error',
