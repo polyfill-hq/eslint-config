@@ -1,5 +1,5 @@
 const a11yOff = Object.keys(require('eslint-plugin-jsx-a11y').rules)
-  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, { });
+  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, {});
 
 module.exports = {
   env: {
@@ -32,16 +32,32 @@ module.exports = {
       'off',
       'declaration',
     ],
+    'jsx-quotes': [
+      'error',
+      'prefer-single',
+    ],
     'no-template-curly-in-string': 'error',
-
     'react/button-has-type': 'off',
     'react/destructuring-assignment': [
       'off',
+    ],
+    'react/jsx-max-props-per-line': [
+      'warn',
+      {
+        maximum: 2,
+        when: 'always',
+      },
     ],
     'react/jsx-no-bind': [
       'off',
     ],
     'react/jsx-no-useless-fragment': 'warn',
+    'react/jsx-one-expression-per-line': [
+      'warn',
+      {
+        allow: 'non-jsx',
+      },
+    ],
     'react/jsx-props-no-spreading': [
       'off',
     ],
@@ -51,13 +67,6 @@ module.exports = {
     'react/require-default-props': [
       'off',
     ],
-    'react/jsx-one-expression-per-line': ['warn', {
-      allow: 'non-jsx',
-    }],
-    'react/jsx-max-props-per-line': ['warn', {
-      maximum: 2,
-      when: 'always',
-    }],
   },
 
 };

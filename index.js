@@ -20,11 +20,51 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      typescript: { },
+      typescript: {},
     },
   },
   ignorePatterns: ['dist', 'build'],
+
   rules: {
+    '@stylistic/no-extra-parens': 'warn',
+    '@stylistic/object-curly-newline': [
+      'error',
+      {
+        ExportDeclaration: {
+          consistent: true,
+          minProperties: 4,
+          multiline: true,
+        },
+        ImportDeclaration: {
+          consistent: true,
+          minProperties: 4,
+          multiline: true,
+        },
+        ObjectExpression: {
+          consistent: true,
+          minProperties: 4,
+          multiline: true,
+        },
+        ObjectPattern: {
+          consistent: true,
+          minProperties: 4,
+          multiline: true,
+        },
+      },
+    ],
+    '@stylistic/object-property-newline': [
+      'error',
+      {
+        allowAllPropertiesOnSameLine: true,
+      },
+    ],
+    '@stylistic/type-annotation-spacing': [
+      'error',
+      {
+        after: true,
+        before: false,
+      },
+    ],
     '@typescript-eslint/array-type': [
       'warn',
       {
@@ -32,6 +72,9 @@ module.exports = {
       },
     ],
     '@typescript-eslint/ban-ts-comment': 'warn',
+    '@typescript-eslint/class-methods-use-this': [
+      'off',
+    ],
     '@typescript-eslint/explicit-function-return-type': [
       'warn',
       {
@@ -41,37 +84,6 @@ module.exports = {
     '@typescript-eslint/naming-convention': [
       'warn',
     ],
-    '@stylistic/no-extra-parens': 'warn',
-    '@stylistic/object-property-newline': ['error', {
-      allowAllPropertiesOnSameLine: true,
-    }],
-    'object-curly-newline': 'off',
-    '@stylistic/object-curly-newline': ['error', {
-      ObjectExpression: {
-        multiline: true,
-        minProperties: 4,
-        consistent: true,
-      },
-      ObjectPattern: {
-        multiline: true,
-        minProperties: 4,
-        consistent: true,
-      },
-      ImportDeclaration: {
-        multiline: true,
-        minProperties: 4,
-        consistent: true,
-      },
-      ExportDeclaration: {
-        multiline: true,
-        minProperties: 4,
-        consistent: true,
-      },
-    }],
-    '@stylistic/type-annotation-spacing': ['error', {
-      before: false,
-      after: true,
-    }],
     '@typescript-eslint/no-floating-promises': [
       'error',
     ],
@@ -99,10 +111,14 @@ module.exports = {
       'error',
       'always',
     ],
-    'class-methods-use-this': [
-      'off',
+    'better-max-params/better-max-params': [
+      'error',
+      {
+        constructor: 10,
+        func: 5,
+      },
     ],
-    '@typescript-eslint/class-methods-use-this': [
+    'class-methods-use-this': [
       'off',
     ],
     'consistent-return': [
@@ -115,7 +131,6 @@ module.exports = {
         allowWholeFile: true,
       },
     ],
-
     'filename-export/match-default-export': 'error',
     'id-length': [
       'warn',
@@ -125,6 +140,16 @@ module.exports = {
       },
     ],
     'import/no-cycle': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'scripts/**',
+          'test*/**',
+          '*',
+        ],
+      },
+    ],
     'import/no-mutable-exports': 'warn',
     'import/no-unresolved': 'error',
     'import/order': [
@@ -149,13 +174,6 @@ module.exports = {
       },
     ],
     'import/prefer-default-export': 'off',
-    'import/no-extraneous-dependencies': ['error', {
-      devDependencies: [
-        'scripts/**',
-        'test*/**',
-        '*',
-      ],
-    }],
     'max-classes-per-file': 'off',
     'max-len': [
       'warn',
@@ -182,7 +200,6 @@ module.exports = {
     'no-extra-parens': 'off',
     'no-import-assign': 'error',
     'no-multi-str': 'off',
-    'no-plusplus': 'off',
     'no-nested-ternary': 'warn',
     'no-param-reassign': [
       'warn',
@@ -190,6 +207,7 @@ module.exports = {
         props: false,
       },
     ],
+    'no-plusplus': 'off',
     'no-restricted-syntax': [
       'off',
     ],
@@ -202,6 +220,7 @@ module.exports = {
       },
     ],
     'node/no-unsupported-features/es-syntax': 'off',
+    'object-curly-newline': 'off',
     'quote-props': [
       'warn',
       'consistent-as-needed',
@@ -218,11 +237,5 @@ module.exports = {
       },
     ],
     'space-infix-ops': 'warn',
-
-    'better-max-params/better-max-params': ['error', {
-      func: 5,
-      constructor: 10,
-    }],
-    'jsx-quotes': ['error', 'prefer-single'],
   },
 };
