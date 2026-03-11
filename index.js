@@ -12,7 +12,11 @@ const tsconfigRootDir = fileURLToPath(new URL('.', import.meta.url));
 
 export default [
   {
-    ignores: ['dist/**', 'build/**', 'templates/**'],
+    ignores: [
+      'dist/**',
+      'build/**',
+      'templates/**',
+    ],
   },
   js.configs.recommended,
   stylistic.configs.recommended,
@@ -103,6 +107,9 @@ export default [
         {
           after: true,
           before: false,
+          overrides: {
+            arrow: 'ignore',
+          },
         },
       ],
       '@typescript-eslint/array-type': [

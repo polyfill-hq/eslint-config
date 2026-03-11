@@ -12,7 +12,7 @@ import React, {
 // ============================================
 interface ButtonProps {
   children: ReactNode;
-  onClick: (event: React.MouseEvent<HTMLButtonElement>)=> void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
 }
@@ -36,6 +36,8 @@ interface UserListProps {
 // ============================================
 function useCounter(initialValue: number = 0) {
   const [count, setCount] = useState(initialValue);
+
+  const number: number = count; // Example of type annotation
 
   const increment = useCallback(() => {
     setCount((prev) => prev + 1);
@@ -282,7 +284,7 @@ function DataFetcher() {
 // ============================================
 interface ModalProps {
   isOpen: boolean;
-  onClose: ()=> void;
+  onClose: () => void;
   children: ReactNode;
 }
 
