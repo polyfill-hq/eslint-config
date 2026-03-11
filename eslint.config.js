@@ -1,12 +1,11 @@
 import baseConfig from './index.js';
 
-export default [
-  ...baseConfig,
+export default baseConfig.append(
   {
     ignores: ['templates/'],
   },
   {
-    files: ['*.js', 'eslint.config.js'],
+    // files: ['*.js', 'eslint.config.js'],
     rules: {
       'import/extensions': 'off',
       '@typescript-eslint/naming-convention': 'off',
@@ -16,4 +15,4 @@ export default [
       '@typescript-eslint/no-unsafe-argument': 'off',
     },
   },
-];
+);

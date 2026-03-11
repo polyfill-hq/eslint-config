@@ -15,16 +15,16 @@ const multiply = (a: number, b: number): number => a * b;
 
 // Async function with promises
 async function fetchData(url: string): Promise<string> {
-  return await fetch(url).then((response) => response.text());
+  return await fetch(url).then(response => response.text());
 }
 
 async function fetchDataAwait(url: string): Promise<string> {
   const resp = await fetch(url);
+  await resp.text();
   return await resp.text();
 }
 
-function personFunction(person: { age: number,
-  name: string }): void {
+function personFunction(person: { age: number, name: string }): void {
   const obj = {
     age: 30,
     name: 'Alice',
@@ -34,8 +34,8 @@ function personFunction(person: { age: number,
 
 // Interface and class usage
 interface Person {
-  name: string;
-  age?: number; // Optional property
+  name: string
+  age?: number // Optional property
 }
 
 class User implements Person {
@@ -68,7 +68,8 @@ const arr2 = [...arr1, 4, 5];
 
 // Destructuring
 const {
-  name, age,
+  name,
+  age,
 } = new User('Alice', 30);
 
 // Optional chaining and nullish coalescing
@@ -88,8 +89,13 @@ function greet(message: string = 'Hello World!'): void {
 
 // Map and forEach
 const numbers = [1, 2, 3];
-numbers.map((n) => n * 2).forEach(console.log);
+numbers.map(n => n * 2).forEach(console.log);
 
 export {
-  add, multiply, fetchData, User, Status, identity,
+  add,
+  fetchData,
+  identity,
+  multiply,
+  Status,
+  User,
 };

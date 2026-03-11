@@ -1,38 +1,17 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-import { FlatCompat } from '@eslint/eslintrc';
-import eslintJs from '@eslint/js';
-import stylisticPlugin from '@stylistic/eslint-plugin';
+import antfu from '@antfu/eslint-config';
 import betterMaxParamsPlugin from 'eslint-plugin-better-max-params';
 import filenameExportPlugin from 'eslint-plugin-filename-export';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: eslintJs.configs.recommended,
-});
-
-export default tseslint.config(
+export default antfu(
   {
+    typescript: true,
     ignores: ['dist/', 'build/'],
   },
-  eslintJs.configs.recommended,
-  ...compat.extends(
-    'plugin:import/recommended',
-    'airbnb/base',
-    '@kesills/airbnb-typescript/base',
-    'plugin:eslint-comments/recommended',
-  ),
   {
     plugins: {
       'filename-export': filenameExportPlugin,
       'better-max-params': betterMaxParamsPlugin,
-      '@stylistic': stylisticPlugin,
     },
     languageOptions: {
       globals: {
@@ -42,12 +21,9 @@ export default tseslint.config(
         project: './tsconfig.json',
       },
     },
-    settings: {
-      'import/resolver': {
-        typescript: {},
-      },
-    },
     rules: {
+      'style/semi': ['error', 'always'],
+      'style/comma-dangle': ['error', 'always-multiline'],
       '@typescript-eslint/array-type': [
         'warn',
         {
@@ -112,6 +88,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/no-unsafe-return': 'warn',
       '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-vars': 'off',
       '@typescript-eslint/no-use-before-define': [
         'warn',
         {
@@ -132,13 +109,7 @@ export default tseslint.config(
         'off',
       ],
       'default-case': 'warn',
-      'eslint-comments/disable-enable-pair': [
-        'error',
-        {
-          allowWholeFile: true,
-        },
-      ],
-      'filename-export/match-default-export': 'error',
+      'filename-export/match-default-export': 'off',
       'id-length': [
         'warn',
         {
@@ -146,38 +117,8 @@ export default tseslint.config(
           min: 1,
         },
       ],
-      'import/no-cycle': 'off',
       'import/no-mutable-exports': 'warn',
-      'import/no-unresolved': 'error',
-      'import/order': [
-        'warn',
-        {
-          'alphabetize': {
-            caseInsensitive: true,
-            order: 'asc',
-          },
-          'groups': [
-            'builtin',
-            'external',
-            [
-              'internal',
-              'sibling',
-              'parent',
-            ],
-            'index',
-            'unknown',
-          ],
-          'newlines-between': 'always',
-        },
-      ],
       'import/prefer-default-export': 'off',
-      'import/no-extraneous-dependencies': ['error', {
-        devDependencies: [
-          'scripts/**',
-          'test*/**',
-          '*',
-        ],
-      }],
       'max-classes-per-file': 'off',
       'max-len': [
         'warn',
@@ -244,7 +185,34 @@ export default tseslint.config(
         func: 5,
         constructor: 10,
       }],
-      'jsx-quotes': ['error', 'prefer-single'],
+    },
+  },
+  {
+    files: ['**/*.{js,cjs,mjs,jsx,yaml,yml,json,jsonc,md,mdx}'],
+    rules: {
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/naming-convention': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/return-await': 'off',
+    },
+  },
+  {
+    files: ['**/*.{yaml,yml,json,jsonc,md,mdx}'],
+    rules: {
+      'filename-export/match-default-export': 'off',
+    },
+  },
+  {
+    files: ['**/*.md/*', '**/*.mdx/*'],
+    rules: {
+      'filename-export/match-default-export': 'off',
     },
   },
 );

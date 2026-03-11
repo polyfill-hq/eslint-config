@@ -1,34 +1,34 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "baseUrl": ".",
-    "sourceMap": true,
-    "importHelpers": true,
+    "jsx": "react-jsx",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
-    "noEmit": true,
-    "jsx": "react-jsx",
+    "allowJs": true,
+    "strict": true,
     "strictNullChecks": true,
-    "useDefineForClassFields": true
+    "noFallthroughCasesInSwitch": true,
+    "importHelpers": true,
+    "noEmit": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "skipLibCheck": true
   },
   "include": [
     "eslint.config.js",
     "*.js",
     "*.ts",
-    "sample_files/*.ts",
+    "sample_files/*"
   ]
 }

@@ -43,5 +43,5 @@ If using pnpm, add this to your `pnpm-workspace.yaml` to hoist ESLint plugins:
 
 ```yaml
 publicHoistPattern:
-  - "*eslint*"
+  - '*eslint*'
 ```
