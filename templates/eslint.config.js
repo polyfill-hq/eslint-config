@@ -1,8 +1,9 @@
-const baseConfig = require('@polyfillhq/eslint-config');
+import baseConfig from '@polyfillhq/eslint-config';
+// import reactConfig from '@polyfillhq/eslint-config/react';
 
-module.exports = [
+export default [
   ...baseConfig,
-  // ...require('@polyfillhq/eslint-config/react'),
+  // ...reactConfig,
   {
     rules: {},
   },

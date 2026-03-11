@@ -1,21 +1,22 @@
-const js = require('@eslint/js');
-const stylistic = require('@stylistic/eslint-plugin');
-const eslintComments = require('eslint-plugin-eslint-comments');
-const importPlugin = require('eslint-plugin-import');
-const packageJsonPlugin = require('eslint-plugin-package-json');
-const globals = require('globals');
-const typescriptEslint = require('typescript-eslint');
+import { fileURLToPath } from 'node:url';
+
+import js from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import importPlugin from 'eslint-plugin-import';
+import globals from 'globals';
+import typescriptEslint from 'typescript-eslint';
 
 /* eslint-disable perfectionist/sort-objects */
 
-module.exports = [
+const tsconfigRootDir = fileURLToPath(new URL('.', import.meta.url));
+
+export default [
   {
     ignores: ['dist/**', 'build/**', 'templates/**'],
   },
   js.configs.recommended,
   stylistic.configs.recommended,
   importPlugin.flatConfigs.recommended,
-  packageJsonPlugin.configs.recommended,
   ...typescriptEslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
@@ -26,12 +27,11 @@ module.exports = [
       parserOptions: {
         projectService: true,
         extraFileExtensions: ['.json'],
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir,
       },
     },
     plugins: {
       '@stylistic': stylistic,
-      'eslint-comments': eslintComments,
     },
     settings: {
       'import/resolver': {
@@ -40,6 +40,7 @@ module.exports = [
     },
     rules: {
       /* eslint-enable perfectionist/sort-objects */
+
       '@stylistic/arrow-parens': [
         'warn',
         'always',
@@ -98,7 +99,7 @@ module.exports = [
         'always',
       ],
       '@stylistic/type-annotation-spacing': [
-        'error',
+        'warn',
         {
           after: true,
           before: false,
@@ -158,12 +159,6 @@ module.exports = [
         'off',
       ],
       'default-case': 'warn',
-      'eslint-comments/disable-enable-pair': [
-        'error',
-        {
-          allowWholeFile: true,
-        },
-      ],
       'id-length': [
         'warn',
         {

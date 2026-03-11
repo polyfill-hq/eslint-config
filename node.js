@@ -1,5 +1,5 @@
-const baseConfig = require('./index.js');
+import baseConfig from './index.js';
 
-module.exports = [
+export default [
   ...baseConfig,
 ];

@@ -1,8 +1,8 @@
-const perfectionist = require('eslint-plugin-perfectionist');
+import perfectionist from 'eslint-plugin-perfectionist';
 
-const reactConfig = require('./react.js');
+import reactConfig from './react.js';
 
-module.exports = [
+export default [
   ...reactConfig,
   {
     files: ['*.js'],
@@ -10,6 +10,7 @@ module.exports = [
       perfectionist,
     },
     rules: {
+      'import/order': 'off',
       'perfectionist/sort-objects': [
         'warn',
         {

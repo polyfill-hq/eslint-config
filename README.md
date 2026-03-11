@@ -18,30 +18,30 @@ pnpm add -D eslint @polyfillhq/eslint-config
 ### Base config
 
 ```js
-const baseConfig = require('@polyfillhq/eslint-config');
+import baseConfig from '@polyfillhq/eslint-config';
 
-module.exports = [
-	...baseConfig,
+export default [
+  ...baseConfig,
 ];
 ```
 
 ### Node config
 
 ```js
-const nodeConfig = require('@polyfillhq/eslint-config/node');
+import nodeConfig from '@polyfillhq/eslint-config/node';
 
-module.exports = [
-	...nodeConfig,
+export default [
+  ...nodeConfig,
 ];
 ```
 
 ### React config
 
 ```js
-const reactConfig = require('@polyfillhq/eslint-config/react');
+import reactConfig from '@polyfillhq/eslint-config/react';
 
-module.exports = [
-	...reactConfig,
+export default [
+  ...reactConfig,
 ];
 ```
 

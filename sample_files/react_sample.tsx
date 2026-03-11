@@ -20,7 +20,7 @@ interface ButtonProps {
 interface ListItemProps {
   id: string;
   label: string;
-  onDelete: (id: string)=> void;
+  onDelete: (id: string) => void;
 }
 
 interface UserListProps {

@@ -1,16 +1,17 @@
-const reactPlugin = require('eslint-plugin-react');
-const reactHooksPlugin = require('eslint-plugin-react-hooks');
-const globals = require('globals');
+// import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import globals from 'globals';
+import eslintReact from '@eslint-react/eslint-plugin';
 
-const baseConfig = require('./index.js');
+import baseConfig from './index.js';
 
-const reactRecommendedRules = reactPlugin.configs.recommended.rules;
-const reactJsxRuntimeRules = reactPlugin.configs['jsx-runtime'].rules;
+// const reactRecommendedRules = reactPlugin.configs.recommended.rules;
+// const reactJsxRuntimeRules = reactPlugin.configs['jsx-runtime'].rules;
 const reactHooksRecommendedRules = reactHooksPlugin.configs.recommended.rules;
 
 /* eslint-disable perfectionist/sort-objects */
 
-module.exports = [
+export default [
   ...baseConfig,
   {
     files: ['**/*.{jsx,tsx}'],
@@ -27,7 +28,8 @@ module.exports = [
       },
     },
     plugins: {
-      'react': reactPlugin,
+      ...eslintReact.configs.recommended.plugins,
+      // 'react': reactPlugin,
       'react-hooks': reactHooksPlugin,
     },
     settings: {
@@ -37,8 +39,9 @@ module.exports = [
     },
     rules: {
       /* eslint-enable perfectionist/sort-objects */
-      ...reactRecommendedRules,
-      ...reactJsxRuntimeRules,
+      // ...reactRecommendedRules,
+      // ...reactJsxRuntimeRules,
+      ...eslintReact.configs.recommended.rules,
       ...reactHooksRecommendedRules,
       '@stylistic/jsx-max-props-per-line': [
         'warn',
