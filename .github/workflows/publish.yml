@@ -1,0 +1,130 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish as stable release (e.g. 10.1.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: npm run lint
+
+  publish-preview:
+    if: github.event_name == 'push'
+    needs: lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org/"
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Compute preview version
+        id: version
+        env:
+          RUN_NUMBER: ${{ github.run_number }}
+        run: |
+          VERSION=$(node -e "
+            const fs = require('fs');
+            const { execSync } = require('child_process');
+
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            const rawEslint = (pkg.dependencies?.eslint || pkg.peerDependencies?.eslint || '0.0.0')
+              .replace(/[^0-9.].*/, '');
+            const eslintMajor = parseInt(rawEslint.split('.')[0], 10);
+
+            let allVersions = [];
+            try {
+              const raw = execSync(
+                'npm view @polyfillhq/eslint-config versions --json 2>/dev/null',
+                { encoding: 'utf8' }
+              );
+              const parsed = JSON.parse(raw);
+              allVersions = Array.isArray(parsed) ? parsed : [parsed];
+            } catch (_) {}
+
+            const stableForMajor = allVersions
+              .filter(v => v.startsWith(eslintMajor + '.') && !v.includes('-'))
+              .sort((a, b) => {
+                const [, am, ap = 0] = a.split('.').map(Number);
+                const [, bm, bp = 0] = b.split('.').map(Number);
+                return am !== bm ? am - bm : ap - bp;
+              });
+
+            const latest = stableForMajor[stableForMajor.length - 1];
+            const nextMinor = latest ? parseInt(latest.split('.')[1], 10) + 1 : 0;
+            const base = eslintMajor + '.' + nextMinor + '.0';
+            console.log(base + '-preview.' + process.env.RUN_NUMBER);
+          ")
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Update package version
+        run: npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+      - name: Publish preview to npm
+        run: npm publish --access public --tag preview
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+  publish-stable:
+    if: github.event_name == 'workflow_dispatch'
+    needs: lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org/"
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Update package version
+        run: npm version ${{ github.event.inputs.version }} --no-git-tag-version
+      - name: Publish stable to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ github.event.inputs.version }}"
+          git push origin "v${{ github.event.inputs.version }}"
