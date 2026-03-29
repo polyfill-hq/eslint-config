@@ -1,7 +1,7 @@
+import eslintReact from '@eslint-react/eslint-plugin';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import { reactRefresh } from 'eslint-plugin-react-refresh';
 import globals from 'globals';
-import eslintReact from '@eslint-react/eslint-plugin';
 
 import baseConfig from './index.js';
 
@@ -26,7 +26,6 @@ export default [
     },
     plugins: {
       ...eslintReact.configs.recommended.plugins,
-      'react-hooks': reactHooksPlugin,
       'react-hooks': reactHooksPlugin,
     },
     settings: {
