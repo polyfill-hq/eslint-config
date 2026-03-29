@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
-import importPlugin from 'eslint-plugin-import';
+import { importX } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
 
@@ -20,7 +20,8 @@ export default [
   },
   js.configs.recommended,
   stylistic.configs.recommended,
-  importPlugin.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   ...typescriptEslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
@@ -173,8 +174,8 @@ export default [
           min: 1,
         },
       ],
-      'import/no-cycle': 'off',
-      'import/no-extraneous-dependencies': [
+      'import-x/no-cycle': 'off',
+      'import-x/no-extraneous-dependencies': [
         'error',
         {
           devDependencies: [
@@ -184,8 +185,8 @@ export default [
           ],
         },
       ],
-      'import/no-mutable-exports': 'warn',
-      'import/order': [
+      'import-x/no-mutable-exports': 'warn',
+      'import-x/order': [
         'warn',
         {
           'alphabetize': {
@@ -206,7 +207,7 @@ export default [
           'newlines-between': 'always',
         },
       ],
-      'import/prefer-default-export': 'off',
+      'import-x/prefer-default-export': 'off',
       'max-classes-per-file': 'off',
       'max-len': [
         'warn',
@@ -261,10 +262,6 @@ export default [
       'quote-props': [
         'warn',
         'consistent-as-needed',
-      ],
-      'radix': [
-        'error',
-        'as-needed',
       ],
       'sort-imports': [
         'warn',

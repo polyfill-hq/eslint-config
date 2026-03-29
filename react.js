@@ -1,4 +1,5 @@
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import { reactRefresh } from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import eslintReact from '@eslint-react/eslint-plugin';
 
@@ -8,6 +9,7 @@ import baseConfig from './index.js';
 
 export default [
   ...baseConfig,
+  reactRefresh.configs.recommended(),
   {
     files: ['**/*.{jsx,tsx}'],
     languageOptions: {
@@ -24,6 +26,7 @@ export default [
     },
     plugins: {
       ...eslintReact.configs.recommended.plugins,
+      'react-hooks': reactHooksPlugin,
       'react-hooks': reactHooksPlugin,
     },
     settings: {
@@ -55,6 +58,7 @@ export default [
           variables: false,
         },
       ],
+
       'func-style': [
         'off',
         'declaration',
