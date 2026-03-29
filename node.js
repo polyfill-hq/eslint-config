@@ -1,8 +1,5 @@
-module.exports = {
-  env: {
-    node: true,
-  },
-  extends: [
-    './index.js',
-  ],
-};
+import baseConfig from './index.js';
+
+export default [
+  ...baseConfig,
+];

@@ -23,8 +23,8 @@ async function fetchDataAwait(url: string): Promise<string> {
   return await resp.text();
 }
 
-function personFunction(person: { age: number,
-  name: string }): void {
+function personFunction(person: { age: number;
+  name: string; }): void {
   const obj = {
     age: 30,
     name: 'Alice',

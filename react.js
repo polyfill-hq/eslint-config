@@ -1,63 +1,68 @@
-const a11yOff = Object.keys(require('eslint-plugin-jsx-a11y').rules)
-  .reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc; }, { });
+import eslintReact from '@eslint-react/eslint-plugin';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import { reactRefresh } from 'eslint-plugin-react-refresh';
+import globals from 'globals';
 
-module.exports = {
-  env: {
-    browser: true,
-  },
-  plugins: [
-  ],
-  globals: {
-    JSX: 'readonly',
-    React: 'readonly',
-  },
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    '@kesills/airbnb-typescript',
-    'plugin:jsx-control-statements/recommended',
-    './index.js',
-  ],
+import baseConfig from './index.js';
 
-  rules: {
-    ...a11yOff,
-    '@typescript-eslint/no-use-before-define': [
-      'warn',
-      {
-        functions: false,
-        variables: false,
+/* eslint-disable perfectionist/sort-objects */
+
+export default [
+  ...baseConfig,
+  reactRefresh.configs.recommended(),
+  {
+    files: ['**/*.{jsx,tsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        JSX: 'readonly',
+        React: 'readonly',
       },
-    ],
-    'func-style': [
-      'off',
-      'declaration',
-    ],
-    'no-template-curly-in-string': 'error',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      ...eslintReact.configs.recommended.plugins,
+      'react-hooks': reactHooksPlugin,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    rules: {
+      /* eslint-enable perfectionist/sort-objects */
+      ...eslintReact.configs.recommended.rules,
+      ...reactHooksPlugin.configs.recommended.rules,
+      '@stylistic/jsx-max-props-per-line': [
+        'warn',
+        {
+          maximum: 2,
+          when: 'always',
+        },
+      ],
+      '@stylistic/jsx-one-expression-per-line': [
+        'warn',
+        {
+          allow: 'non-jsx',
+        },
+      ],
+      '@typescript-eslint/no-use-before-define': [
+        'warn',
+        {
+          functions: false,
+          variables: false,
+        },
+      ],
 
-    'react/button-has-type': 'off',
-    'react/destructuring-assignment': [
-      'off',
-    ],
-    'react/jsx-no-bind': [
-      'off',
-    ],
-    'react/jsx-no-useless-fragment': 'warn',
-    'react/jsx-props-no-spreading': [
-      'off',
-    ],
-    'react/react-in-jsx-scope': [
-      'off',
-    ],
-    'react/require-default-props': [
-      'off',
-    ],
-    'react/jsx-one-expression-per-line': ['warn', {
-      allow: 'non-jsx',
-    }],
-    'react/jsx-max-props-per-line': ['warn', {
-      maximum: 2,
-      when: 'always',
-    }],
+      'func-style': [
+        'off',
+        'declaration',
+      ],
+      'no-template-curly-in-string': 'error',
+    },
   },
-
-};
+];
