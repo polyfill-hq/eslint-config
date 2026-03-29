@@ -4,17 +4,15 @@
 //   node compute-version.js <run_number> -> preview version (e.g. 10.2.0-preview.42)
 
 import { execSync } from "node:child_process";
-import { readFileSync } from "node:fs";
 
 const runNumber = process.argv[2];
 
-const pkg = JSON.parse(readFileSync("package.json", "utf8"));
-const rawEslint = (
-  pkg.dependencies?.eslint ||
-  pkg.peerDependencies?.eslint ||
-  "0.0.0"
-).replace(/[^0-9.].*/, "");
-const eslintMajor = parseInt(rawEslint.split(".")[0], 10);
+// Use pnpm list to get the resolved (installed) eslint version from the lockfile
+const pnpmList = JSON.parse(
+  execSync("pnpm list eslint --json --depth 0", { encoding: "utf8" })
+);
+const eslintVersion = pnpmList[0]?.dependencies?.eslint?.version ?? "0.0.0";
+const eslintMajor = parseInt(eslintVersion.split(".")[0], 10);
 
 let allVersions = [];
 try {
