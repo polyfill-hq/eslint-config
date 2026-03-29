@@ -132,9 +132,6 @@ export default [
       '@typescript-eslint/naming-convention': [
         'off',
       ],
-      '@typescript-eslint/no-floating-promises': [
-        'error',
-      ],
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
