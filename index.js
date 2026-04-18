@@ -271,6 +271,7 @@ export default [
           rootDir: 'src',
         },
       ],
+      'prefer-template': 'error',
       'quote-props': [
         'warn',
         'consistent-as-needed',

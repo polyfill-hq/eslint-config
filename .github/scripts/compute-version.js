@@ -7,8 +7,6 @@
 //   node compute-version.js preview.123  -> updates package.json version and prints major.minor-preview.123
 
 import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
 
 const postfixArg = process.argv[2]?.trim() ?? '';
 
@@ -20,6 +18,6 @@ const eslintVersion = pnpmList[0]?.dependencies?.eslint?.version ?? '0.0.0';
 const [eslintMajor = '0', eslintMinor = '0'] = eslintVersion.split('.');
 const version = `${eslintMajor}.${eslintMinor}${postfixArg}`;
 
-execSync('npm version ' + version, { encoding: 'utf8' });
+execSync(`npm version --no-git-tag-version ${version}`, { encoding: 'utf8' });
 
 console.log(version);
