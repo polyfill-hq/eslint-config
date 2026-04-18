@@ -1,0 +1,19 @@
+# VCS and editor metadata
+.git/
+.github/
+.vscode/
+
+# Local dependencies and logs
+node_modules/
+*.log
+
+# Development/test assets not needed at runtime
+sample_files/
+templates/
+test-*.js
+
+# Repository-level tooling/config files not needed by consumers
+eslint.config.js
+tsconfig.json
+pnpm-lock.yaml
+.gitignore
