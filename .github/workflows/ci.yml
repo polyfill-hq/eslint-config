@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  id-token: write
   contents: write
 
 jobs:
@@ -45,8 +46,8 @@ jobs:
           VERSION="$(node ./.github/scripts/compute-version.js ".${{ github.run_number }}-preview")"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - run: npm publish --access public --tag preview
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Create and push git tag
         run: |
           git config user.name "github-actions[bot]"
@@ -76,8 +77,8 @@ jobs:
           VERSION="$(node ./.github/scripts/compute-version.js ".${{ github.run_number }}")"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Create and push git tag
         run: |
           git config user.name "github-actions[bot]"
