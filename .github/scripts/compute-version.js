@@ -18,12 +18,8 @@ const pnpmList = JSON.parse(
 );
 const eslintVersion = pnpmList[0]?.dependencies?.eslint?.version ?? '0.0.0';
 const [eslintMajor = '0', eslintMinor = '0'] = eslintVersion.split('.');
-const base = `${eslintMajor}.${eslintMinor}`;
-const version = `${base}${postfixArg}`;
+const version = `${eslintMajor}.${eslintMinor}${postfixArg}`;
 
-const packageJsonPath = resolve(process.cwd(), 'package.json');
-const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
-packageJson.version = version;
-writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`, 'utf8');
+execSync('npm version ' + version, { encoding: 'utf8' });
 
 console.log(version);
