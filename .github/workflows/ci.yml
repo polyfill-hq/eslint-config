@@ -44,7 +44,7 @@ jobs:
         run: |
           VERSION="$(node ./.github/scripts/compute-version.js ".${{ github.run_number }}-preview")"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-      - run: npm publish --access public
+      - run: npm publish --access public --tag preview
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Create and push git tag
