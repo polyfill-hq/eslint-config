@@ -93,7 +93,7 @@ function CustomButton({
 
   return (
     <button
-      type="button"
+      type='button'
       onClick={handleClick}
       disabled={disabled}
       className={`button button--${variant}`}
@@ -111,7 +111,7 @@ function ListItem({ id, label, onDelete }: ListItemProps) {
   return (
     <li key={id}>
       <span>{label}</span>
-      <button type="button" onClick={handleDelete}>
+      <button type='button' onClick={handleDelete}>
         Delete
       </button>
     </li>
@@ -125,10 +125,10 @@ function Counter() {
   const { count, increment, decrement } = useCounter(0);
 
   return (
-    <div className="counter">
+    <div className='counter'>
       <p>Count: {count}</p>
       <CustomButton onClick={increment}>Increment</CustomButton>
-      <CustomButton onClick={decrement} variant="secondary">
+      <CustomButton onClick={decrement} variant='secondary'>
         Decrement
       </CustomButton>
     </div>
@@ -156,7 +156,7 @@ function UserList({ users }: UserListProps) {
   }
 
   return (
-    <div className="user-list">
+    <div className='user-list'>
       <ul ref={listRef}>
         {sortedUsers.map(({ id, name, email }) => (
           <li
@@ -213,13 +213,13 @@ function TodoList() {
   );
 
   return (
-    <div className="todo-list">
+    <div className='todo-list'>
       <h2>
         Todos ({completedCount}/{todos.length})
       </h2>
-      <div className="input-group">
+      <div className='input-group'>
         <input
-          type="text"
+          type='text'
           value={input}
           onChange={(e) => {
             setInput(e.currentTarget.value);
@@ -229,7 +229,7 @@ function TodoList() {
               addTodo();
             }
           }}
-          placeholder="Add a todo..."
+          placeholder='Add a todo...'
         />
         <CustomButton onClick={addTodo}>Add</CustomButton>
       </div>
@@ -237,7 +237,7 @@ function TodoList() {
         {todos.map((todo) => (
           <li key={todo.id}>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={todo.completed}
               onChange={() => {
                 toggleTodo(todo.id);
@@ -247,7 +247,7 @@ function TodoList() {
               {todo.text}
             </span>
             <button
-              type="button"
+              type='button'
               onClick={() => {
                 deleteTodo(todo.id);
               }}
@@ -309,9 +309,9 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className='modal-overlay' onClick={onClose}>
       <div
-        className="modal-content"
+        className='modal-content'
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -335,7 +335,7 @@ export default function App() {
   ];
 
   return (
-    <div className="app">
+    <div className='app'>
 
       <header>
         <h1>React ESLint Test Patterns</h1>

@@ -2,6 +2,10 @@ name: CI
 
 on:
   push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   lint:
@@ -19,16 +23,64 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: npm run lint
 
-  publish:
-    if: github.ref == 'refs/heads/main'
+  publish-preview:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
           registry-url: https://registry.npmjs.org/
+      - run: pnpm install --frozen-lockfile
+      - name: Compute preview version
+        id: version
+        run: |
+          VERSION="$(node ./.github/scripts/compute-version.js ".${{ github.run_number }}-preview")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+  publish-stable:
+    if: github.event_name == 'workflow_dispatch'
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v5
+        with:
+          version: 10
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
+          registry-url: https://registry.npmjs.org/
+      - run: pnpm install --frozen-lockfile
+      - name: Compute stable version
+        id: version
+        run: |
+          VERSION="$(node ./.github/scripts/compute-version.js ".${{ github.run_number }}")"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Create and push git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"

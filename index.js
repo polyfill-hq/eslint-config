@@ -6,6 +6,8 @@ import { importX } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import typescriptEslint from 'typescript-eslint';
 
+import noRelativeParentImportsPlugin from './rules/no-relative-parent-imports-plugin.mjs';
+
 /* eslint-disable perfectionist/sort-objects */
 
 const tsconfigRootDir = fileURLToPath(new URL('.', import.meta.url));
@@ -37,10 +39,11 @@ export default [
     },
     plugins: {
       '@stylistic': stylistic,
+      'polyfill-hq': noRelativeParentImportsPlugin,
     },
     settings: {
-      'import/resolver': {
-        typescript: {},
+      'import-x/resolver': {
+        node: true,
       },
     },
     rules: {
@@ -57,6 +60,7 @@ export default [
           allowSingleLine: true,
         },
       ],
+      '@stylistic/max-statements-per-line': 'warn',
       '@stylistic/member-delimiter-style': ['warn', {
         multiline: {
           delimiter: 'semi',
@@ -99,6 +103,7 @@ export default [
           allowAllPropertiesOnSameLine: true,
         },
       ],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
       '@stylistic/semi': [
         'warn',
         'always',
@@ -132,6 +137,7 @@ export default [
       '@typescript-eslint/naming-convention': [
         'off',
       ],
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
@@ -172,16 +178,15 @@ export default [
         },
       ],
       'import-x/no-cycle': 'off',
-      'import-x/no-extraneous-dependencies': [
-        'error',
-        {
-          devDependencies: [
-            'scripts/**',
-            'test*/**',
-            '*',
-          ],
-        },
-      ],
+      'import-x/no-extraneous-dependencies': ['error', {
+        devDependencies: [
+          'scripts/**',
+          'test*/**',
+          '**/*.spec.*',
+          './*.config.mjs',
+          './*config.ts',
+        ],
+      }],
       'import-x/no-mutable-exports': 'warn',
       'import-x/order': [
         'warn',
@@ -189,23 +194,26 @@ export default [
           'alphabetize': {
             caseInsensitive: true,
             order: 'asc',
+            orderImportKind: 'ignore',
           },
+          'distinctGroup': true,
           'groups': [
             'builtin',
             'external',
-            [
-              'internal',
-              'sibling',
-              'parent',
-            ],
+            'internal',
+            'parent',
+            'sibling',
             'index',
             'unknown',
           ],
+          'named': false,
           'newlines-between': 'always',
-        },
-      ],
+          'sortTypesGroup': false,
+          'warnOnUnassignedImports': false,
+        }],
       'import-x/prefer-default-export': 'off',
       'max-classes-per-file': 'off',
+
       'max-len': [
         'warn',
         {
@@ -222,7 +230,7 @@ export default [
       'max-params': [
         'error',
         {
-          max: 5,
+          max: 10,
         },
       ],
       'newline-per-chained-call': [
@@ -256,17 +264,19 @@ export default [
         },
       ],
       'object-curly-newline': 'off',
+      'polyfill-hq/no-relative-parent-imports': [
+        'warn',
+        {
+          prefix: '@',
+          rootDir: 'src',
+        },
+      ],
       'quote-props': [
         'warn',
         'consistent-as-needed',
       ],
-      'sort-imports': [
-        'warn',
-        {
-          allowSeparatedGroups: true,
-          ignoreDeclarationSort: true,
-        },
-      ],
+      'quotes': 'off',
+      'sort-imports': 'off',
       'space-infix-ops': 'warn',
     },
   },

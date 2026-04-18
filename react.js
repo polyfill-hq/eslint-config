@@ -9,6 +9,8 @@ import baseConfig from './index.js';
 
 export default [
   ...baseConfig,
+  eslintReact.configs['recommended-typescript'],
+  eslintReact.configs['strict-type-checked'],
   reactRefresh.configs.recommended(),
   {
     files: ['**/*.{jsx,tsx}'],
@@ -50,6 +52,7 @@ export default [
           allow: 'non-jsx',
         },
       ],
+      '@stylistic/jsx-quotes': ['warn', 'prefer-single'],
       '@typescript-eslint/no-use-before-define': [
         'warn',
         {
@@ -57,12 +60,13 @@ export default [
           variables: false,
         },
       ],
-
       'func-style': [
         'off',
         'declaration',
       ],
+
       'no-template-curly-in-string': 'error',
+      'react-refresh/only-export-components': 'warn',
     },
   },
 ];
