@@ -1,34 +1,36 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "baseUrl": ".",
-    "sourceMap": true,
-    "importHelpers": true,
+    "target": "ES2024",
     "lib": [
+      "ES2024",
       "dom",
-      "dom.iterable",
-      "esnext"
+      "dom.iterable"
     ],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
     "allowJs": true,
-    "skipLibCheck": true,
+    "jsx": "react-jsx",
+
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "useDefineForClassFields": true,
+
+    /* Interop */
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": false,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "strictNullChecks": true,
-    "useDefineForClassFields": true
+    "skipLibCheck": true,
+
+    /* Output */
+    "noEmit": true
   },
   "include": [
-    "eslint.config.js",
-    "*.js",
-    "*.ts",
-    "sample_files/*",
+    "**/*",
+    ".github/**/*"
   ]
 }
